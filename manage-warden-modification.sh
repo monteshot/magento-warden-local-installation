@@ -1,8 +1,7 @@
 #!/bin/bash
 
 
-# Path to .env
-file_path="$HOME/$MAIN_DOMAIN/content/.env"
+file_path="$MAGENTO_CONTENT_PATH/.env"
 
 clear_url=$MAIN_DOMAIN;
 cp -v ./.warden/.env $file_path
@@ -21,7 +20,7 @@ else
     exit 1
 fi
 
-FILE_PATH="$GITPOD_REPO_ROOTS/.warden/warden-env.yml"
+FILE_PATH="$HOME/.warden/warden-env.yml"
 TLS_DECLARATION='      - "traefik.http.routers.${WARDEN_ENV_NAME}-nginx.tls=false"'
 
 if [[ -f "$FILE_PATH" ]]; then
@@ -31,7 +30,7 @@ else
     echo "File not found: $FILE_PATH"
 fi
 
-FILE_PATH="$GITPOD_REPO_ROOTS/.warden/warden-env.yml"
+FILE_PATH="$HOME/.warden/warden-env.yml"
 TLS_DECLARATION='      - "traefik.http.routers.${WARDEN_ENV_NAME}-phpmyadmin.tls=false"'
 
 if [[ -f "$FILE_PATH" ]]; then
@@ -40,7 +39,3 @@ if [[ -f "$FILE_PATH" ]]; then
 else
     echo "File not found: $FILE_PATH"
 fi
-
-
-
-warden env exec -e COMPOSER_AUTH="$AUTH_JSON" -e MAGENTO_VERSION="$MAGENTO_VERSION" php-fpm composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition=$MAGENTO_VERSION /var/www/html/tmp/ -vvv

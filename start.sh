@@ -1,31 +1,23 @@
 #!/bin/bash
 
 PASSOWRD='M0nteShot'
+MAGENTO_PATH=$HOME/$MAIN_DOMAIN
+MAGENTO_CONTENT_PATH=$HOME/$MAIN_DOMAIN/'content'
+WARDEN_BREW_DIR=$(brew --prefix warden)
+
 
 sudo apt install sshpass -y
 
-for pkg in docker.io docker-doc docker-compose docker-compose-v2 podman-docker containerd runc; do echo $PASSOWRD | sudo -S sshpass apt-get remove $pkg; done
+/bin/bash -c "./manage-docker.sh"
 
-curl -fsSL https://get.docker.com -o get-docker.sh
-echo $PASSOWRD | sudo -S sshpass sh ./get-docker.sh
+/bin/bash -c "./manage-brew.sh"
 
-echo $PASSOWRD | sudo -S sshpass usermod -aG docker $USER;
+/bin/bash -c "./manage-warden.sh"
 
-newgrp docker;
-docker run hello-world;
+/bin/bash -c "./manage-pre-setup.sh"
 
+/bin/bash -c "./manage-traefik.sh"
 
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" ;
+/bin/bash -c "./manage-magento.sh"
 
-echo >> /home/monteshot/.bashrc
-echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> /home/monteshot/.bashrc
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-echo $PASSOWRD | sudo -S sshpass apt-get install build-essential -y
-brew install gcc -q
-
-
-brew install wardenenv/warden/warden -q;
-warden svc up;
-
-/bin/bash -c "./install-services.sh"
-/bin/bash -c "./reinstall-local-small.sh"
+/bin/bash -c "./manage-post-setup.sh"

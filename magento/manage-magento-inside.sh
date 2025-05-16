@@ -1,8 +1,4 @@
-rm ./app/etc/env.php;
-rm ./app/etc/config.php;
-rm -rf ./var/cache/* ./var/page_cache/* ./var/view_preprocessed/* ./generated/code/* ./pub/static/*;
-main_domain=$MAIN_DOMAIN
-
+#!/bin/bash
 
 bin/magento setup:install -vvv \
     --backend-frontname=admin \
@@ -11,14 +7,14 @@ bin/magento setup:install -vvv \
     --db-name=magento \
     --db-user=magento \
     --db-password=magento \
-    --search-engine=elasticsearch7 \
-    --elasticsearch-host=elasticsearch \
-    --elasticsearch-port=9200 \
-    --elasticsearch-index-prefix=magento2 \
-    --elasticsearch-enable-auth=0 \
-    --elasticsearch-username=admin \
-    --elasticsearch-password=admin \
-    --elasticsearch-timeout=15 \
+    --search-engine=opensearch \
+    --opensearch-host=opensearch \
+    --opensearch-port=9200 \
+    --opensearch-index-prefix=magento2 \
+    --opensearch-enable-auth=0 \
+    --opensearch-username=admin \
+    --opensearch-password=admin \
+    --opensearch-timeout=15 \
     --session-save=redis \
     --session-save-redis-host=redis \
     --session-save-redis-port=6379 \
