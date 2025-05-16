@@ -12,6 +12,7 @@ warden svc up;
 echo "$PASSWORD" | sudo -SE ./manage-warden-modification.sh
 
 echo "Starting project containers"
+cd $MAGENTO_CONTENT_PATH
 warden env up
 
 echo "Setting up Warden"
