@@ -24,7 +24,9 @@ echo "$PASSWORD" | sudo -S apt-get install docker-ce docker-ce-cli containerd.io
 
 echo "$PASSWORD" | sudo -S usermod -aG docker $USER;
 
-newgrp docker || exit 0;
+newgrp docker << END
+echo "Group docker activated"
+END
 
 echo "$PASSWORD" | sudo -S systemctl start docker.service
 echo "$PASSWORD" | sudo -S systemctl start containerd.service
