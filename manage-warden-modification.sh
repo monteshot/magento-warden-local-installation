@@ -4,7 +4,7 @@
 file_path="$MAGENTO_CONTENT_PATH/.env"
 
 clear_url=$MAIN_DOMAIN;
-cp -v "$(pwd)/.warden/.env" $file_path
+cp -v "$(pwd)/magento/.warden/.env" $file_path
 
 echo $file_path
 # Str for modifying
