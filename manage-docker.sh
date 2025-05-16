@@ -2,8 +2,24 @@
 
 for pkg in docker.io docker-doc docker-compose docker-compose-v2 podman-docker containerd runc; do echo $PASSWORD | sudo -S sshpass apt-get remove $pkg; done
 
-curl -fsSL https://get.docker.com -o get-docker.sh || exit 0;
-echo $PASSWORD | sudo -S sshpass sh ./get-docker.sh || exit 0;
+
+# Add Docker's official GPG key:
+echo $PASSWORD | sudo -S sshpass apt-get update
+echo $PASSWORD | sudo -S sshpass apt-get install ca-certificates curl
+echo $PASSWORD | sudo -S sshpass install -m 0755 -d /etc/apt/keyrings
+echo $PASSWORD | sudo -S sshpass curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+echo $PASSWORD | sudo -S sshpass chmod a+r /etc/apt/keyrings/docker.asc
+
+# Add the repository to Apt sources:
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}") stable" | \
+  echo $PASSWORD | sudo -S sshpass tee /etc/apt/sources.list.d/docker.list > /dev/null
+echo $PASSWORD | sudo -S sshpass apt-get update
+
+
+echo $PASSWORD | sudo -S sshpass apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
 
 echo $PASSWORD | sudo -S sshpass usermod -aG docker $USER;
 
