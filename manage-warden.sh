@@ -9,9 +9,7 @@ echo "Creating Warden-related files(containers) under home directory"
 warden svc up;
 
 
-./manage-warden-modification.sh
-
-
+echo "$PASSWORD" | sudo -S ./manage-warden-modification.sh
 
 echo "Starting project containers"
 warden env up
