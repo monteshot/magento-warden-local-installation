@@ -10,12 +10,19 @@ HOME_DIR="/home/$(logname)"
 MAGENTO_PATH=$HOME_DIR/$MAIN_DOMAIN
 MAGENTO_CONTENT_PATH=$HOME_DIR/$MAIN_DOMAIN/'content'
 
+mkdir -p $MAGENTO_CONTENT_PATH
+WARDEN_BREW_DIR=$(brew --prefix warden)
+
+export PASSWORD
+export HOME_DIR
+export MAGENTO_PATH
+export MAGENTO_CONTENT_PATH
+export WARDEN_BREW_DIR
+
 echo "HOME_DIR: $HOME_DIR"
 echo "MAGENTO_PATH: $MAGENTO_PATH"
 echo "MAGENTO_CONTENT_PATH: $MAGENTO_CONTENT_PATH"
-
-mkdir -p $MAGENTO_CONTENT_PATH
-WARDEN_BREW_DIR=$(brew --prefix warden)
+echo "WARDEN_BREW_DIR: $WARDEN_BREW_DIR"
 
 echo "$PASSWORD" | sudo -S apt install sshpass -y
 
