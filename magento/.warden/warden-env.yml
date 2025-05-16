@@ -1,0 +1,39 @@
+version: "3.5"
+services:
+  nginx:
+    volumes:
+      - ./.warden/nginx/custom.conf:/etc/nginx/default.d/custom.conf:ro
+      - ./.warden/nginx/default.conf.template:/etc/nginx/conf.d/default.conf.template:ro
+      - ./.warden/nginx/magento2.conf:/etc/nginx/available.d/magento2.conf:ro
+    labels:
+      - traefik.http.routers.${WARDEN_ENV_NAME}-nginx.rule=
+        HostRegexp(`{subdomain:.+}.${TRAEFIK_DOMAIN}`)
+        || Host(`${TRAEFIK_DOMAIN}`)
+        || Host(`clear.magento2.loc`)
+        || (Host(`443-${CLEAR_URL:-clear.magento2.loc}`)&&PathPrefix(`/`))
+      # Вирубаємо tls для контейнера
+      - "traefik.http.routers.${WARDEN_ENV_NAME}-nginx.tls=true"
+      # Робимо загальний набір middlewares щоб потім прописати його як "traefik.http.routers.${WARDEN_ENV_NAME}-nginx.middlewares=monteshot-suffixes@docker"
+      - "traefik.http.middlewares.monteshot-suffixes.chain.middlewares=https-redirect"
+      # Приміняємо увесь chain міддлевейру до контейнеру з nginx
+      - "traefik.http.routers.${WARDEN_ENV_NAME}-nginx.middlewares=monteshot-suffixes@docker"
+      - "traefik.http.middlewares.https-redirect.headers.customrequestheaders.X-Forwarded-Proto=https"
+  phpmyadmin:
+    image: docker.io/library/phpmyadmin:latest
+    hostname: ${WARDEN_ENV_NAME}-phpmyadmin
+    domainname: phpmyadmin.${WARDEN_ENV_NAME}.test
+    environment:
+      - PMA_HOSTS=${WARDEN_ENV_NAME}-db-1
+      - PMA_USER=root
+      - PMA_PASSWORD=magento
+      - PMA_ABSOLUTE_URI=https://phpmyadmin.${TRAEFIK_DOMAIN}
+    labels:
+      - "traefik.http.routers.${WARDEN_ENV_NAME}-phpmyadmin.tls=true"
+      - "traefik.enable=true"
+      - "traefik.http.middlewares.pma-suffixes.chain.middlewares=pma-suffix"
+      - "traefik.http.routers.${WARDEN_ENV_NAME}-phpmyadmin.rule=(Host(`${TRAEFIK_DOMAIN}`)&&PathPrefix(`/phpmyadmin`))||Host(`phpmyadmin.${WARDEN_ENV_NAME}.warden.test`)"
+      - "traefik.http.routers.${WARDEN_ENV_NAME}-phpmyadmin.middlewares=pma-suffixes@docker"
+      - "traefik.http.middlewares.pma-suffix.replacepathregex.regex=^/phpmyadmin/(.*)"
+      - "traefik.http.middlewares.pma-suffix.replacepathregex.replacement=/$$1"
+    volumes:
+      - ./var/log/pma-logs:/var/log/apache2

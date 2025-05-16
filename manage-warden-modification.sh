@@ -2,44 +2,44 @@
 
 echo $MAGENTO_CONTENT_PATH
 
-file_path="$MAGENTO_CONTENT_PATH/.env"
+FILE_PATH_ENV="$MAGENTO_CONTENT_PATH/.env"
+FILE_PATH_WARDEN_ENV_YML="$MAGENTO_CONTENT_PATH/warden-env.yml"
 
-echo ".env file path" $file_path
+echo ".env file path" $FILE_PATH_ENV
 
 clear_url=$MAIN_DOMAIN;
-cp -v "$(pwd)/magento/.warden/.env" $file_path
+cp -v "$(pwd)/magento/.warden/.env" $FILE_PATH_ENV
+cp -v "$(pwd)/magento/.warden/warden-env.yml" $FILE_PATH_WARDEN_ENV_YML
 
-echo $file_path
-# Str for modifying
+echo $FILE_PATH_ENV
+echo $FILE_PATH_WARDEN_ENV_YML
 site1="clear\.magento2\.loc"
 
-# If file exist
-if [ -f "$file_path" ]; then
-    # Modifying the file
-    sed -i "s|$site1|$MAIN_DOMAIN|" "$file_path"
+if [ -f "$FILE_PATH_ENV" ]; then
+    sed -i "s|$site1|$MAIN_DOMAIN|" "$FILE_PATH_ENV"
     echo "Modifying complete(.env)."
 else
-    echo "File $file_path not found."
+    echo "File $FILE_PATH_ENV not found."
     exit 1
 fi
 
-FILE_PATH="$HOME_DIR/.warden/warden-env.yml"
-echo "warden-env.yml file path" $FILE_PATH
+
+echo "warden-env.yml file path" $FILE_PATH_WARDEN_ENV_YML
 TLS_DECLARATION='      - "traefik.http.routers.${WARDEN_ENV_NAME}-nginx.tls=false"'
 
-if [[ -f "$FILE_PATH" ]]; then
-    sed -i 's/      - "traefik.http.routers.${WARDEN_ENV_NAME}-nginx.tls=true"/'"$TLS_DECLARATION"'/' "$FILE_PATH"
+if [[ -f "$FILE_PATH_WARDEN_ENV_YML" ]]; then
+    sed -i 's/      - "traefik.http.routers.${WARDEN_ENV_NAME}-nginx.tls=true"/'"$TLS_DECLARATION"'/' "$FILE_PATH_WARDEN_ENV_YML"
     echo "Changes successfully applied."
 else
-    echo "File not found: $FILE_PATH"
+    echo "File not found: $FILE_PATH_WARDEN_ENV_YML"
 fi
 
-FILE_PATH="$HOME_DIR/.warden/warden-env.yml"
+
 TLS_DECLARATION='      - "traefik.http.routers.${WARDEN_ENV_NAME}-phpmyadmin.tls=false"'
 
-if [[ -f "$FILE_PATH" ]]; then
-    sed -i 's/      - "traefik.http.routers.${WARDEN_ENV_NAME}-phpmyadmin.tls=true"/'"$TLS_DECLARATION"'/' "$FILE_PATH"
+if [[ -f "$FILE_PATH_WARDEN_ENV_YML" ]]; then
+    sed -i 's/      - "traefik.http.routers.${WARDEN_ENV_NAME}-phpmyadmin.tls=true"/'"$TLS_DECLARATION"'/' "$FILE_PATH_WARDEN_ENV_YML"
     echo "Changes successfully applied."
 else
-    echo "File not found: $FILE_PATH"
+    echo "File not found: $FILE_PATH_WARDEN_ENV_YML"
 fi
