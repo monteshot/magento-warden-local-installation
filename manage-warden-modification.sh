@@ -1,7 +1,10 @@
 #!/bin/bash
 
+echo $MAGENTO_CONTENT_PATH
 
 file_path="$MAGENTO_CONTENT_PATH/.env"
+
+echo ".env file path" $file_path
 
 clear_url=$MAIN_DOMAIN;
 cp -v "$(pwd)/magento/.warden/.env" $file_path
@@ -21,6 +24,7 @@ else
 fi
 
 FILE_PATH="$HOME_DIR/.warden/warden-env.yml"
+echo "warden-env.yml file path" $FILE_PATH
 TLS_DECLARATION='      - "traefik.http.routers.${WARDEN_ENV_NAME}-nginx.tls=false"'
 
 if [[ -f "$FILE_PATH" ]]; then
