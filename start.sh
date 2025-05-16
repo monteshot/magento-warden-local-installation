@@ -10,8 +10,7 @@ MAGENTO_PATH=$HOME/$MAIN_DOMAIN
 MAGENTO_CONTENT_PATH=$HOME/$MAIN_DOMAIN/'content'
 WARDEN_BREW_DIR=$(brew --prefix warden)
 
-
-sudo apt install sshpass -y
+echo "$PASSWORD" | sudo -S apt install sshpass -y
 
 echo "Managing Docker"
 /bin/bash -c "./manage-docker.sh"
