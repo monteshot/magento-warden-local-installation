@@ -20,7 +20,7 @@ else
     exit 1
 fi
 
-FILE_PATH="$HOME/.warden/warden-env.yml"
+FILE_PATH="$HOME_DIR/.warden/warden-env.yml"
 TLS_DECLARATION='      - "traefik.http.routers.${WARDEN_ENV_NAME}-nginx.tls=false"'
 
 if [[ -f "$FILE_PATH" ]]; then
@@ -30,7 +30,7 @@ else
     echo "File not found: $FILE_PATH"
 fi
 
-FILE_PATH="$HOME/.warden/warden-env.yml"
+FILE_PATH="$HOME_DIR/.warden/warden-env.yml"
 TLS_DECLARATION='      - "traefik.http.routers.${WARDEN_ENV_NAME}-phpmyadmin.tls=false"'
 
 if [[ -f "$FILE_PATH" ]]; then

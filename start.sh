@@ -6,8 +6,10 @@ if [[ -z "$PASSWORD" ]]; then
     exit 1
 fi
 
-MAGENTO_PATH=$HOME/$MAIN_DOMAIN
-MAGENTO_CONTENT_PATH=$HOME/$MAIN_DOMAIN/'content'
+HOME_DIR="/home/$(logname)"
+
+MAGENTO_PATH=$HOME_DIR/$MAIN_DOMAIN
+MAGENTO_CONTENT_PATH=$HOME_DIR/$MAIN_DOMAIN/'content'
 
 mkdir -p $MAGENTO_CONTENT_PATH
 WARDEN_BREW_DIR=$(brew --prefix warden)
