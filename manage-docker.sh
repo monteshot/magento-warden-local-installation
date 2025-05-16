@@ -14,7 +14,8 @@ echo $PASSWORD | sudo -S sshpass chmod a+r /etc/apt/keyrings/docker.asc
 echo \
   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
   $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}") stable" | \
-  echo $PASSWORD | sudo -S sshpass tee /etc/apt/sources.list.d/docker.list > /dev/null
+  tee $HOME/docker.list > /dev/null
+echo $PASSWORD | sudo -S sshpass mv $HOME/docker.list /etc/apt/sources.list.d/docker.list
 echo $PASSWORD | sudo -S sshpass apt-get update
 
 
