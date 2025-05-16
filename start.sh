@@ -8,6 +8,8 @@ fi
 
 MAGENTO_PATH=$HOME/$MAIN_DOMAIN
 MAGENTO_CONTENT_PATH=$HOME/$MAIN_DOMAIN/'content'
+
+mkdir -p $MAGENTO_CONTENT_PATH
 WARDEN_BREW_DIR=$(brew --prefix warden)
 
 echo "$PASSWORD" | sudo -S apt install sshpass -y
