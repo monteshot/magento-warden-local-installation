@@ -3,7 +3,7 @@
 clear_url=$MAIN_DOMAIN;
 
 
-brew install wardenenv/warden/warden -q;
+NONINTERACTIVE=1 brew install wardenenv/warden/warden -q;
 
 echo "Creating Warden-related files(containers) under home directory"
 warden svc up;
