@@ -1,6 +1,11 @@
 #!/bin/bash
 
-PASSOWRD='M0nteShot'
+
+if [[ -z "$PASSWORD" ]]; then
+    echo "PASSWORD variable is not set. Please set it before running the script."
+    exit 1
+fi
+
 MAGENTO_PATH=$HOME/$MAIN_DOMAIN
 MAGENTO_CONTENT_PATH=$HOME/$MAIN_DOMAIN/'content'
 WARDEN_BREW_DIR=$(brew --prefix warden)
