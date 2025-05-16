@@ -5,5 +5,5 @@
 echo >> /home/monteshot/.bashrc
 echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> /home/monteshot/.bashrc
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-echo $PASSWORD | sudo -S sshpass apt-get install build-essential -y
+echo "$PASSWORD" | sudo -S apt-get install build-essential -y
 brew install gcc -q
