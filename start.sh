@@ -8,16 +8,26 @@ WARDEN_BREW_DIR=$(brew --prefix warden)
 
 sudo apt install sshpass -y
 
+echo "Managing Docker"
 /bin/bash -c "./manage-docker.sh"
 
+echo "Managing Brew"
 /bin/bash -c "./manage-brew.sh"
+
+echo "Managing Warden"
 
 /bin/bash -c "./manage-warden.sh"
 
-/bin/bash -c "./manage-pre-setup.sh"
+echo "Managing Traefik"
 
 /bin/bash -c "./manage-traefik.sh"
 
+echo "Managing Magento"
+
 /bin/bash -c "./manage-magento.sh"
 
+echo "Managing Post-Setup"
+
 /bin/bash -c "./manage-post-setup.sh"
+
+echo "Setup Complete"
