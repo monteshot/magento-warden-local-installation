@@ -5,6 +5,8 @@ echo $MAGENTO_CONTENT_PATH
 FILE_PATH_ENV="$MAGENTO_CONTENT_PATH/.env"
 FILE_PATH_WARDEN_ENV_YML="$MAGENTO_DOT_WARDEN_CONTENT_PATH/warden-env.yml"
 
+mkdir -p "$MAGENTO_DOT_WARDEN_CONTENT_PATH"
+
 echo ".env file path" $FILE_PATH_ENV
 
 clear_url=$MAIN_DOMAIN;
@@ -25,20 +27,20 @@ fi
 
 
 echo "warden-env.yml file path" $FILE_PATH_WARDEN_ENV_YML
-TLS_DECLARATION='      - "traefik.http.routers.${WARDEN_ENV_NAME}-nginx.tls=false"'
+TLS_DECLARATION_NGINX='      - "traefik.http.routers.${WARDEN_ENV_NAME}-nginx.tls=false"'
 
 if [[ -f "$FILE_PATH_WARDEN_ENV_YML" ]]; then
-    sed -i 's/      - "traefik.http.routers.${WARDEN_ENV_NAME}-nginx.tls=true"/'"$TLS_DECLARATION"'/' "$FILE_PATH_WARDEN_ENV_YML"
+    sed -i 's/      - "traefik.http.routers.${WARDEN_ENV_NAME}-nginx.tls=true"/'"$TLS_DECLARATION_NGINX"'/' "$FILE_PATH_WARDEN_ENV_YML"
     echo "Changes successfully applied."
 else
     echo "File not found: $FILE_PATH_WARDEN_ENV_YML"
 fi
 
 
-TLS_DECLARATION='      - "traefik.http.routers.${WARDEN_ENV_NAME}-phpmyadmin.tls=false"'
+TLS_DECLARATION_PMA='      - "traefik.http.routers.${WARDEN_ENV_NAME}-phpmyadmin.tls=false"'
 
 if [[ -f "$FILE_PATH_WARDEN_ENV_YML" ]]; then
-    sed -i 's/      - "traefik.http.routers.${WARDEN_ENV_NAME}-phpmyadmin.tls=true"/'"$TLS_DECLARATION"'/' "$FILE_PATH_WARDEN_ENV_YML"
+    sed -i 's/      - "traefik.http.routers.${WARDEN_ENV_NAME}-phpmyadmin.tls=true"/'"$TLS_DECLARATION_PMA"'/' "$FILE_PATH_WARDEN_ENV_YML"
     echo "Changes successfully applied."
 else
     echo "File not found: $FILE_PATH_WARDEN_ENV_YML"
