@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cd $MAGENTO_CONTENT_PATH
+
 warden env exec php-fpm composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition=$MAGENTO_VERSION /var/www/html/tmp/ -vvv
 
 echo "$PASSWORD" | sudo -S rm -rf var/
