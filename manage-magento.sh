@@ -4,7 +4,7 @@ AUTH_JSON="$(cat "$MAIN_SCRIPT_DIR"/magento/auth.json)"
 
 cd $MAGENTO_CONTENT_PATH
 
-echo "$PASSWORD" | sudo -S rm -rf "$MAGENTO_CONTENT_PATH"/tmp/
+echo "$PASSWORD" | sudo -S rm -rf "$MAGENTO_CONTENT_PATH/*"
 warden env exec -e COMPOSER_AUTH="$AUTH_JSON" php-fpm composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition=$MAGENTO_VERSION /var/www/html/tmp/ -vvv
 echo "$PASSWORD" | sudo -S rm -rf var/
 echo "$PASSWORD" | sudo -S mv "$MAGENTO_CONTENT_PATH"/tmp/* "$MAGENTO_CONTENT_PATH"/
