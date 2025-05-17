@@ -14,6 +14,6 @@ warden env exec php-fpm rm ./app/etc/env.php;
 warden env exec php-fpm rm ./app/etc/config.php;
 warden env exec php-fpm rm -rf ./var/cache/* ./var/page_cache/* ./var/view_preprocessed/* ./generated/code/* ./pub/static/*;
 main_domain=$MAIN_DOMAIN
-cp "$(pwd)/magento" $MAGENTO_CONTENT_PATH
+cp "$(pwd)/magento" "$MAGENTO_CONTENT_PATH"
 
 warden env exec -e main_domain="$MAIN_DOMAIN" php-fpm manage-magento-inside.sh
