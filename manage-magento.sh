@@ -21,13 +21,13 @@ echo "Cleaning up temporary files..."
 echo "$PASSWORD" | sudo -S rm -rf "$MAGENTO_CONTENT_PATH"/tmp/
 
 echo "Removing env.php ..."
-warden env exec php-fpm rm ./app/etc/env.php;
+warden env exec php-fpm rm ./app/etc/env.php || true;
 echo "Removing config.php ..."
-warden env exec php-fpm rm ./app/etc/config.php;
+warden env exec php-fpm rm ./app/etc/config.php || true;
 echo "Removing caches from new files ..."
 warden env exec php-fpm rm -rf ./var/cache/* ./var/page_cache/* ./var/view_preprocessed/* ./generated/code/* ./pub/static/*;
 
-cp "$(pwd)/magento/*" "$MAGENTO_CONTENT_PATH"
+cp "$MAIN_SCRIPT_DIR/magento/"* "$MAGENTO_CONTENT_PATH"
 
 echo "Starting Magento installation..."
 
