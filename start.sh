@@ -51,8 +51,4 @@ echo "Managing Magento"
 
 /bin/bash -c "./manage-magento.sh"
 
-echo "Managing Post-Setup"
-
-/bin/bash -c "./manage-post-setup.sh"
-
 echo "Setup Complete"

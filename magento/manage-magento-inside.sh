@@ -92,4 +92,9 @@ bin/magento config:set --scope=store --scope-code=admin --lock-env web/secure/ba
 
 bin/magento cache:flush
 
+bin/magento d:m:se production
+bin/magento cache:flush
+bin/magento cron:install
+bin/magento cron:run
+
 echo "Magento App installed"
