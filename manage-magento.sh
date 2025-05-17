@@ -27,7 +27,7 @@ warden env exec php-fpm rm ./app/etc/config.php || true;
 echo "Removing caches from new files ..."
 warden env exec php-fpm rm -rf ./var/cache/* ./var/page_cache/* ./var/view_preprocessed/* ./generated/code/* ./pub/static/*;
 
-cp "$MAIN_SCRIPT_DIR/magento/"* "$MAGENTO_CONTENT_PATH"
+echo "$PASSWORD" | sudo -S cp -r "$MAIN_SCRIPT_DIR/magento/"* "$MAGENTO_CONTENT_PATH"
 
 echo "Starting Magento installation..."
 
