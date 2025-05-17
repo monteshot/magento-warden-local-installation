@@ -1,6 +1,6 @@
 #!/bin/bash
 
-AUTH_JSON="$(cat $SCRIPT_DIR/magento/auth.json)"
+AUTH_JSON="$(cat "$MAIN_SCRIPT_DIR"/magento/auth.json)"
 
 cd $MAGENTO_CONTENT_PATH
 
