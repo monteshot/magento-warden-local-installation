@@ -31,7 +31,7 @@ echo "$PASSWORD" | sudo -S cp -r "$MAIN_SCRIPT_DIR/magento/"* "$MAGENTO_CONTENT_
 
 echo "Starting Magento installation..."
 
-warden env exec -e main_domain="$MAIN_DOMAIN" php-fpm manage-magento-inside.sh
+warden env exec -e main_domain="$MAIN_DOMAIN" php-fpm /var/www/html/manage-magento-inside.sh
 if [ $? -ne 0 ]; then
     echo "Magento installation failed. Please check the logs above."
     exit 1
