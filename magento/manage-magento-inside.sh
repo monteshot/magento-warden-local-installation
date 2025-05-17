@@ -1,5 +1,9 @@
 #!/bin/bash
 
+echo "Fixing permissions..."
+sudo chown -R www-data:www-data /var/www/html
+
+echo "Installing Magento App..."
 bin/magento setup:install -vvv \
     --backend-frontname=admin \
     --cleanup-database \
@@ -57,6 +61,8 @@ bin/magento config:set --lock-env catalog/search/enable_eav_indexer 1
 bin/magento config:set --lock-env dev/static/sign 1
 bin/magento d:m:se developer
 
+echo "Processing Indexer settings..."
+
 ENV_FILE="app/etc/env.php"
 INDEXER_FILE="app/etc/indexer.php"
 TEMP_FILE="app/etc/temp_env.php"
@@ -86,4 +92,4 @@ bin/magento config:set --scope=store --scope-code=admin --lock-env web/secure/ba
 
 bin/magento cache:flush
 
-echo "Magento installed"
+echo "Magento App installed"
