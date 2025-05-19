@@ -16,14 +16,15 @@ if [ $? -ne 0 ]; then
 fi
 
 echo "Cleaning up old files..."
-warden env exec php-fpm ls -la "$MAGENTO_CONTENT_PATH"/*
-echo "$PASSWORD" | sudo -S rm -rf "$MAGENTO_CONTENT_PATH"/*
+warden env exec php-fpm ls -la /var/www/html
+warden env exec php-fpm sudo rm -rf /var/www/html/*
 
 echo "Moving new files..."
 warden env exec php-fpm ls -la /tmp/magento
-echo "$PASSWORD" | sudo -S mv -f /tmp/magento/* "$MAGENTO_CONTENT_PATH/"
+warden env exec php-fpm mv -f /tmp/magento/* /var/www/html
+
 echo "Cleaning up temporary files..."
-echo "$PASSWORD" | sudo -S rm -rf "$MAGENTO_CONTENT_PATH"/tmp/
+warden env exec php-fpm sudo rm -rf /tmp/magento
 
 echo "Removing env.php ..."
 warden env exec php-fpm rm ./app/etc/env.php || true;
