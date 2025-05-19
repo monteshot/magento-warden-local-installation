@@ -44,3 +44,6 @@ if [ $? -ne 0 ]; then
     echo "Magento installation failed. Please check the logs above."
     exit 1
 fi
+
+warden env down
+warden env up
