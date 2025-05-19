@@ -9,9 +9,6 @@ echo "$PASSWORD" | sudo -S rm -rf "$MAGENTO_CONTENT_PATH/*"
 warden env exec php-fpm rm -rf /tmp/magento
 warden env exec php-fpm mkdir -p /tmp/magento
 
-warden env exec php-fpm sudo chown -R www-data:www-data /var/www/html
-warden env exec php-fpm sudo chown -R www-data:www-data /tmp/magento
-
 warden env exec -e COMPOSER_AUTH="$AUTH_JSON" php-fpm composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition=$MAGENTO_VERSION /tmp/magento -vvv
 
 if [ $? -ne 0 ]; then
@@ -28,6 +25,8 @@ echo "Moving new files..."
 warden env exec php-fpm ls -la /tmp/magento
 warden env exec php-fpm cp -ar /tmp/magento/* /var/www/html
 warden env exec php-fpm ls -la /tmp/magento
+echo "Copying new files to $MAGENTO_CONTENT_PATH..."
+echo "$PASSWORD" | sudo -S cp -r "$MAIN_SCRIPT_DIR/magento/"* "$MAGENTO_CONTENT_PATH"
 
 echo "Cleaning up temporary files..."
 warden env exec php-fpm sudo rm -rf /tmp/magento
@@ -38,8 +37,6 @@ echo "Removing config.php ..."
 warden env exec php-fpm rm ./app/etc/config.php || true;
 echo "Removing caches from new files ..."
 warden env exec php-fpm rm -rf ./var/cache/* ./var/page_cache/* ./var/view_preprocessed/* ./generated/code/* ./pub/static/*;
-
-echo "$PASSWORD" | sudo -S cp -r "$MAIN_SCRIPT_DIR/magento/"* "$MAGENTO_CONTENT_PATH"
 
 echo "Starting Magento installation..."
 
