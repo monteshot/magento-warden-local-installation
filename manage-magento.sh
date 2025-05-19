@@ -19,7 +19,7 @@ echo "Cleaning up old files..."
 echo "$PASSWORD" | sudo -S rm -rf "$MAGENTO_CONTENT_PATH/*"
 
 echo "Moving new files..."
-echo "$PASSWORD" | sudo -S mv -f "/tmp/magento/*" "$MAGENTO_CONTENT_PATH/"
+echo "$PASSWORD" | sudo -S mv -f /tmp/magento/* "$MAGENTO_CONTENT_PATH/"
 echo "Cleaning up temporary files..."
 echo "$PASSWORD" | sudo -S rm -rf "$MAGENTO_CONTENT_PATH"/tmp/
 
