@@ -3,11 +3,11 @@
 echo $MAGENTO_CONTENT_PATH
 
 FILE_PATH_ENV="$MAGENTO_CONTENT_PATH/.env"
-FILE_PATH_WARDEN_ENV_YML="$MAGENTO_DOT_WARDEN_CONTENT_PATH/.warden/warden-env.yml"
+echo ".env file path" $FILE_PATH_ENV
 
 mkdir -p "$MAGENTO_DOT_WARDEN_CONTENT_PATH"
+FILE_PATH_WARDEN_ENV_YML="$MAGENTO_CONTENT_PATH/.warden/warden-env.yml"
 
-echo ".env file path" $FILE_PATH_ENV
 
 cp -v "$(pwd)/magento/.warden/.env" "$FILE_PATH_ENV"
 cp -v "$(pwd)/magento/.warden/warden-env.yml" "$FILE_PATH_WARDEN_ENV_YML"

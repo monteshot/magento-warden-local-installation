@@ -5,6 +5,15 @@ if [ -z "$MAIN_DOMAIN" ]; then
     exit 1
 fi
 
+
+sudo mkdir -p /etc/systemd/resolved.conf.d
+
+echo -e "[Resolve]\nDNS=127.0.0.1\nDomains=~$MAIN_DOMAIN\n" \
+  | sudo tee /etc/systemd/resolved.conf.d/warden.conf > /dev/null
+
+sudo systemctl restart systemd-resolved
+
+
 # Path to docker-compose.yml
 file_path=$WARDEN_BREW_DIR"/docker/docker-compose.yml"
 
