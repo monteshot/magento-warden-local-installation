@@ -9,7 +9,6 @@ mkdir -p "$MAGENTO_DOT_WARDEN_CONTENT_PATH"
 
 echo ".env file path" $FILE_PATH_ENV
 
-clear_url=$MAIN_DOMAIN;
 cp -v "$(pwd)/magento/.warden/.env" $FILE_PATH_ENV
 cp -v "$(pwd)/magento/.warden/warden-env.yml" $FILE_PATH_WARDEN_ENV_YML
 

@@ -58,9 +58,9 @@ else
 fi
 
 # Traefik custom port
-INSERT_LINE="- \"\${TRAEFIK_LISTEN:-127.0.0.1}:4433:443\""
+INSERT_LINE="- \"\${TRAEFIK_LISTEN:-127.0.0.1}:433:443\""
 sed -i "/- \"\${TRAEFIK_LISTEN:-127.0.0.1}:443:443\"/a $INSERT_LINE" $WARDEN_BREW_DIR/docker/docker-compose.yml
-INSERT_LINE="- \"\${TRAEFIK_LISTEN:-127.0.0.1}:4433:443\""
+INSERT_LINE="- \"\${TRAEFIK_LISTEN:-127.0.0.1}:433:443\""
 INSERT_LINE_WITH_TABS="      $INSERT_LINE"
 sed -i "s/$INSERT_LINE/$INSERT_LINE_WITH_TABS/" $WARDEN_BREW_DIR/docker/docker-compose.yml
 
