@@ -20,9 +20,9 @@ echo "Cleaning up old files..."
 warden env exec php-fpm ls -la /var/www/html
 warden env exec php-fpm sudo rm -rf /var/www/html/*
 
-echo "Copying new files to $MAGENTO_CONTENT_PATH..."
+echo "Moving new files to $MAGENTO_CONTENT_PATH..."
 warden env exec php-fpm ls -la /tmp/magento
-warden env exec php-fpm sh -c "cp -ar /tmp/magento/* /var/www/html"
+warden env exec php-fpm sh -c "mv -f /tmp/magento/* /var/www/html"
 
 echo "Copying support files..."
 echo "$PASSWORD" | sudo -S cp -r "$MAIN_SCRIPT_DIR/magento/"* "$MAGENTO_CONTENT_PATH"
