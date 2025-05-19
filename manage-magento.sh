@@ -8,6 +8,10 @@ echo "$PASSWORD" | sudo -S rm -rf "$MAGENTO_CONTENT_PATH/*"
 
 warden env exec php-fpm rm -rf /tmp/magento
 warden env exec php-fpm mkdir -p /tmp/magento
+
+warden env exec php-fpm sudo chown -R www-data:www-data /var/www/html
+warden env exec php-fpm sudo chown -R www-data:www-data /tmp/magento
+
 warden env exec -e COMPOSER_AUTH="$AUTH_JSON" php-fpm composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition=$MAGENTO_VERSION /tmp/magento -vvv
 
 if [ $? -ne 0 ]; then
@@ -18,10 +22,12 @@ fi
 echo "Cleaning up old files..."
 warden env exec php-fpm ls -la /var/www/html
 warden env exec php-fpm sudo rm -rf /var/www/html/*
+warden env exec php-fpm ls -la /var/www/html
 
 echo "Moving new files..."
 warden env exec php-fpm ls -la /tmp/magento
-warden env exec php-fpm mv -f /tmp/magento/* /var/www/html
+warden env exec php-fpm cp -ar /tmp/magento/* /var/www/html
+warden env exec php-fpm ls -la /tmp/magento
 
 echo "Cleaning up temporary files..."
 warden env exec php-fpm sudo rm -rf /tmp/magento
