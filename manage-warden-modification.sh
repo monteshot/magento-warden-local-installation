@@ -3,17 +3,17 @@
 echo $MAGENTO_CONTENT_PATH
 
 FILE_PATH_ENV="$MAGENTO_CONTENT_PATH/.env"
-FILE_PATH_WARDEN_ENV_YML="$MAGENTO_DOT_WARDEN_CONTENT_PATH/warden-env.yml"
+FILE_PATH_WARDEN_ENV_YML="$MAGENTO_DOT_WARDEN_CONTENT_PATH/.warden/warden-env.yml"
 
 mkdir -p "$MAGENTO_DOT_WARDEN_CONTENT_PATH"
 
 echo ".env file path" $FILE_PATH_ENV
 
-cp -v "$(pwd)/magento/.warden/.env" $FILE_PATH_ENV
-cp -v "$(pwd)/magento/.warden/warden-env.yml" $FILE_PATH_WARDEN_ENV_YML
+cp -v "$(pwd)/magento/.warden/.env" "$FILE_PATH_ENV"
+cp -v "$(pwd)/magento/.warden/warden-env.yml" "$FILE_PATH_WARDEN_ENV_YML"
 
-echo $FILE_PATH_ENV
-echo $FILE_PATH_WARDEN_ENV_YML
+echo "$FILE_PATH_ENV"
+echo "$FILE_PATH_WARDEN_ENV_YML"
 site1="clear\.magento2\.loc"
 
 if [ -f "$FILE_PATH_ENV" ]; then
