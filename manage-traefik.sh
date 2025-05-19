@@ -6,12 +6,14 @@ if [ -z "$MAIN_DOMAIN" ]; then
 fi
 
 
-sudo mkdir -p /etc/systemd/resolved.conf.d
+echo "$PASSWORD" | sudo -S mkdir -p /etc/systemd/resolved.conf.d
 
 echo -e "[Resolve]\nDNS=127.0.0.1\nDomains=~$MAIN_DOMAIN\n" \
-  | sudo tee /etc/systemd/resolved.conf.d/warden.conf > /dev/null
+  | tee $HOME_DIR/warden.conf > /dev/null
 
-sudo systemctl restart systemd-resolved
+echo "$PASSWORD" | sudo -S cp $HOME_DIR/warden.conf /etc/systemd/resolved.conf.d/warden.conf
+
+echo "$PASSWORD" | sudo -S systemctl restart systemd-resolved
 
 
 # Path to docker-compose.yml
