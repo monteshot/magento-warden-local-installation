@@ -6,6 +6,7 @@ cd $MAGENTO_CONTENT_PATH
 
 echo "$PASSWORD" | sudo -S rm -rf "$MAGENTO_CONTENT_PATH/*"
 
+warden env exec php-fpm rm -rf /tmp/magento
 warden env exec php-fpm mkdir -p /tmp/magento
 warden env exec -e COMPOSER_AUTH="$AUTH_JSON" php-fpm composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition=$MAGENTO_VERSION /tmp/magento -vvv
 
