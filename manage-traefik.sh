@@ -1,8 +1,6 @@
 #!/bin/bash
 
-clear_url=$MAIN_DOMAIN;
-
-if [ -z "$clear_url" ]; then
+if [ -z "$MAIN_DOMAIN" ]; then
     echo "Cannot retrieve clear_url."
     exit 1
 fi
@@ -14,7 +12,7 @@ file_path=$WARDEN_BREW_DIR"/docker/docker-compose.yml"
 search_string="routers.traefik.rule"
 
 # Final str for replace process
-replace_string="      - traefik.http.routers.traefik.rule=Host(\`$clear_url\`)"
+replace_string="      - traefik.http.routers.traefik.rule=Host(\`$MAIN_DOMAIN\`)"
 
 # Str to commenting out
 tls_line="- traefik.http.routers.traefik.tls=true"
