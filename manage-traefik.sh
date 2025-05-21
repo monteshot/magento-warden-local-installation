@@ -66,7 +66,3 @@ else
     exit 1
 fi
 
-
-sed -i s/TRAEFIK_LISTEN=127.0.0.1//g $HOME_DIR/.warden/.env
-echo "TRAEFIK_LISTEN=0.0.0.0" | tee -a $HOME_DIR/.warden/.env
-
