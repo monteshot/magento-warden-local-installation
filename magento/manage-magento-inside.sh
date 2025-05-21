@@ -77,7 +77,6 @@ mv $TEMP_FILE $ENV_FILE
 
 bin/magento indexer:reindex
 bin/magento cache:flush
-php ./setup_theme.php
 
 bin/magento cache:flush
 bin/magento admin:user:create --admin-user='monteshot' --admin-password='M0nteshot' --admin-email='faqreg@gmail.com' --admin-firstname='MonteShot' --admin-lastname='Dev'
