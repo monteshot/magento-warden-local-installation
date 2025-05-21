@@ -97,4 +97,7 @@ bin/magento cache:flush
 bin/magento cron:install
 bin/magento cron:run
 
+echo "Fixing permissions..."
+sudo chown -R www-data:www-data /var/www/html
+
 echo "Magento App installed"

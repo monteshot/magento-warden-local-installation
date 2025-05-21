@@ -47,3 +47,5 @@ fi
 
 warden env down
 warden env up
+warden svc down -v
+warden svc up
