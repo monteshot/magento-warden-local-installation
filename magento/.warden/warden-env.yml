@@ -10,12 +10,12 @@ services:
         || Host(`${TRAEFIK_DOMAIN}`)
         || Host(`clear.magento2.loc`)
       # Вирубаємо tls для контейнера
-      - "traefik.http.routers.${WARDEN_ENV_NAME}-nginx.tls=true"
+      - traefik.http.routers.${WARDEN_ENV_NAME}-nginx.tls=true
       # Робимо загальний набір middlewares щоб потім прописати його як "traefik.http.routers.${WARDEN_ENV_NAME}-nginx.middlewares=monteshot-suffixes@docker"
-      - "traefik.http.middlewares.monteshot-suffixes.chain.middlewares=https-redirect"
+      - traefik.http.middlewares.monteshot-suffixes.chain.middlewares=https-redirect
       # Приміняємо увесь chain міддлевейру до контейнеру з nginx
-      - "traefik.http.routers.${WARDEN_ENV_NAME}-nginx.middlewares=monteshot-suffixes@docker"
-      - "traefik.http.middlewares.https-redirect.headers.customrequestheaders.X-Forwarded-Proto=https"
+      - traefik.http.routers.${WARDEN_ENV_NAME}-nginx.middlewares=monteshot-suffixes@docker
+      - traefik.http.middlewares.https-redirect.headers.customrequestheaders.X-Forwarded-Proto=https
   phpmyadmin:
     image: docker.io/library/phpmyadmin:latest
     hostname: ${WARDEN_ENV_NAME}-phpmyadmin
@@ -26,12 +26,12 @@ services:
       - PMA_PASSWORD=magento
       - PMA_ABSOLUTE_URI=https://phpmyadmin.${TRAEFIK_DOMAIN}
     labels:
-      - "traefik.http.routers.${WARDEN_ENV_NAME}-phpmyadmin.tls=true"
-      - "traefik.enable=true"
-      - "traefik.http.middlewares.pma-suffixes.chain.middlewares=pma-suffix"
-      - "traefik.http.routers.${WARDEN_ENV_NAME}-phpmyadmin.rule=(Host(`${TRAEFIK_DOMAIN}`)&&PathPrefix(`/phpmyadmin`))||Host(`phpmyadmin.${WARDEN_ENV_NAME}.warden.test`)"
-      - "traefik.http.routers.${WARDEN_ENV_NAME}-phpmyadmin.middlewares=pma-suffixes@docker"
-      - "traefik.http.middlewares.pma-suffix.replacepathregex.regex=^/phpmyadmin/(.*)"
-      - "traefik.http.middlewares.pma-suffix.replacepathregex.replacement=/$$1"
+      - traefik.http.routers.${WARDEN_ENV_NAME}-phpmyadmin.tls=true
+      - traefik.enable=true
+      - traefik.http.middlewares.pma-suffixes.chain.middlewares=pma-suffix
+      - traefik.http.routers.${WARDEN_ENV_NAME}-phpmyadmin.rule=(Host(`${TRAEFIK_DOMAIN}`)&&PathPrefix(`/phpmyadmin`))||Host(`phpmyadmin.${WARDEN_ENV_NAME}.warden.test`)
+      - traefik.http.routers.${WARDEN_ENV_NAME}-phpmyadmin.middlewares=pma-suffixes@docker
+      - traefik.http.middlewares.pma-suffix.replacepathregex.regex=^/phpmyadmin/(.*)
+      - traefik.http.middlewares.pma-suffix.replacepathregex.replacement=/$$1
     volumes:
       - ./var/log/pma-logs:/var/log/apache2
