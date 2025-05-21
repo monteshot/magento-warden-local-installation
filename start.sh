@@ -6,7 +6,10 @@ if [[ -z "$PASSWORD" ]]; then
     exit 1
 fi
 
-HOME_DIR="/home/$(logname)"
+if [[ -z "$HOME_DIR" ]]; then
+    HOME_DIR="/home/$(logname)"
+fi
+
 MAGENTO_PATH=$HOME_DIR/$MAIN_DOMAIN
 MAGENTO_CONTENT_PATH=$HOME_DIR/$MAIN_DOMAIN'/content'
 MAGENTO_DOT_WARDEN_CONTENT_PATH=$MAGENTO_CONTENT_PATH'/.warden'
