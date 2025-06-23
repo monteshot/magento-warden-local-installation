@@ -35,16 +35,16 @@ bin/magento setup:install -vvv \
 
 bin/magento mo:d Magento_TwoFactorAuth Magento_AdminAdobeImsTwoFactorAuth
 bin/magento config:set --scope=store --scope-code=default --lock-env web/unsecure/base_url \
-    "https://${main_domain}/"
+    "https://${MAIN_DOMAIN}/"
 
 bin/magento config:set --scope=store --scope-code=default --lock-env web/secure/base_url \
-    "https://${main_domain}/"
+    "https://${MAIN_DOMAIN}/"
 
 bin/magento config:set --scope=store --scope-code=admin --lock-env web/unsecure/base_url \
-    "https://${main_domain}/"
+    "https://${MAIN_DOMAIN}/"
 
 bin/magento config:set --scope=store --scope-code=admin --lock-env web/secure/base_url \
-    "https://${main_domain}/"
+    "https://${MAIN_DOMAIN}/"
 
 
 bin/magento config:set --lock-env web/secure/offloader_header X-Forwarded-Proto
@@ -83,10 +83,10 @@ bin/magento admin:user:create --admin-user='monteshot' --admin-password='M0ntesh
 bin/magento setup:perf:generate-fixtures /var/www/html/setup/performance-toolkit/profiles/ce/small.xml
 
 bin/magento config:set --scope=store --scope-code=admin --lock-env web/unsecure/base_url \
-    "https://${main_domain}/"
+    "https://${MAIN_DOMAIN}/"
 
 bin/magento config:set --scope=store --scope-code=admin --lock-env web/secure/base_url \
-    "https://${main_domain}/"
+    "https://${MAIN_DOMAIN}/"
 
 bin/magento cache:flush
 

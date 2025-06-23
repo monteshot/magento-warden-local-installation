@@ -41,7 +41,7 @@ warden env exec php-fpm sh -c "rm -rf ./var/cache/* ./var/page_cache/* ./var/vie
 
 echo "Starting Magento installation..."
 
-warden env exec -e main_domain="$MAIN_DOMAIN" php-fpm /var/www/html/manage-magento-inside.sh
+warden env exec -e MAIN_DOMAIN="$MAIN_DOMAIN" php-fpm /var/www/html/manage-magento-inside.sh
 if [ $? -ne 0 ]; then
     echo "Magento installation failed. Please check the logs above."
     exit 1
