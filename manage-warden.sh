@@ -10,7 +10,7 @@ echo "$PASSWORD" | sudo -SE ./manage-warden-modification.sh
 
 echo "Starting project containers"
 cd $MAGENTO_CONTENT_PATH
-warden env up
+warden env up --remove-orphans
 
 echo "Setting up Warden"
 sed -i s/WARDEN_SERVICE_DOMAIN=$MAIN_DOMAIN//g $HOME_DIR/.warden/.env
