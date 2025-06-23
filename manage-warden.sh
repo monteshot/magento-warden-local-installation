@@ -3,8 +3,8 @@
 
 #NONINTERACTIVE=1 brew install wardenenv/warden/warden -q;
 
-sudo mkdir /opt/warden
-sudo chown $(whoami) /opt/warden
+echo "$PASSWORD" | sudo -S mkdir /opt/warden
+echo "$PASSWORD" | sudo -S chown $(whoami) /opt/warden
 git clone -b main https://github.com/wardenenv/warden.git /opt/warden
 echo 'export PATH="/opt/warden/bin:$PATH"' >> ~/.bashrc
 PATH="/opt/warden/bin:$PATH"

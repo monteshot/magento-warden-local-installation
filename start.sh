@@ -39,8 +39,8 @@ echo "$PASSWORD" | sudo -S apt install sshpass -y
 echo "Managing Docker"
 /bin/bash -c "./manage-docker.sh"
 
-echo "Managing Brew"
-/bin/bash -c "./manage-brew.sh"
+#echo "Managing Brew"
+#/bin/bash -c "./manage-brew.sh"
 
 echo "Managing Warden"
 
